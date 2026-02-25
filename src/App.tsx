@@ -4,7 +4,6 @@ function App() {
   return (
     <>
       <header>
-        <h1>Burhanettin Arslanbaş - Kişisel Portföy</h1>
         <nav>
           <ul>
             <li>
@@ -23,23 +22,22 @@ function App() {
       <main>
         <section id="hakkimda">
           <h2>Hakkimda</h2>
-          <p>Merhaba, ben Burhanettin. Yazılım Mühendisliği öğrencisiyim.</p>
-          <p>Backend geliştirme ve yazılım mimarisi ile ilgileniyorum.</p>
+          {/* icerik buraya */}
         </section>
 
         <section id="projeler">
           <h2>Projelerim</h2>
-          <p>Yakında projelerimi bu bölümde paylaşacağım.</p>
+          {/* icerik buraya */}
         </section>
 
         <section id="iletisim">
           <h2>Iletisim</h2>
-          <p>E-posta: ornek@mail.com</p>
+          {/* form buraya */}
         </section>
       </main>
 
       <footer>
-        <p>&copy; 2025 Burhanettin Arslanbaş. Tum haklari saklidir.</p>
+        <p>&copy; 2025 Ad Soyad. Tum haklari saklidir.</p>
       </footer>
     </>
   )
