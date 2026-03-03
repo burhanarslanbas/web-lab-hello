@@ -20,14 +20,35 @@ function App() {
       </header>
 
       <main>
+        <h1>Ahmet Yilmaz - Kisisel Portfolyo</h1>
+
         <section id="hakkimda">
           <h2>Hakkimda</h2>
-          {/* icerik buraya */}
+          <figure>
+            <img
+              src="profil.jpg"
+              alt="Ahmet Yilmaz'in vesikalik fotografi"
+            />
+            <figcaption>Ahmet Yilmaz</figcaption>
+          </figure>
         </section>
 
         <section id="projeler">
           <h2>Projelerim</h2>
-          {/* icerik buraya */}
+          <figure>
+            <img
+              src="proje1.jpg"
+              alt="E-ticaret sitesi ana sayfa ekran goruntusu"
+            />
+            <figcaption>E-Ticaret Sitesi</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="proje2.jpg"
+              alt="Blog uygulamasi liste sayfasi ekran goruntusu"
+            />
+            <figcaption>Blog Uygulamasi</figcaption>
+          </figure>
         </section>
 
         <section id="iletisim">
