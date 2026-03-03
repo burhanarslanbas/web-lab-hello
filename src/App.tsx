@@ -4,6 +4,7 @@ function App() {
   return (
     <>
       <header>
+        <div className="site-title">Ahmet Yilmaz</div>
         <nav>
           <ul>
             <li>
