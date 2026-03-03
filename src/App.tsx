@@ -25,22 +25,39 @@ function App() {
 
         <section id="hakkimda">
           <h2>Hakkimda</h2>
-          <figure>
-            <img
-              src="profil.jpg"
-              alt="Ahmet Yilmaz'in vesikalik fotografi"
-            />
-            <figcaption>Ahmet Yilmaz</figcaption>
-          </figure>
+          <div className="about-content">
+            <figure>
+              <img
+                src="profil.jpg"
+                alt="Ahmet Yilmaz'in vesikalik fotografi"
+              />
+              <figcaption>Ahmet Yilmaz</figcaption>
+            </figure>
 
-          <ul className="skill-tags" role="list" aria-label="Beceri etiketleri">
-            <li>HTML5</li>
-            <li>CSS3</li>
-            <li>JavaScript</li>
-            <li>React</li>
-            <li>TypeScript</li>
-            <li>Git</li>
-          </ul>
+            <div>
+              <p>
+                Merhaba, ben Ahmet Yilmaz. Web gelistirme, modern CSS ve React
+                ekosistemi ile ilgilenen bir yazilim gelistiriciyim.
+              </p>
+              <p>
+                Ozellikle kullanici deneyimi odakli, responsive ve erisilebilir
+                arayuzler tasarlamaya onem veriyorum.
+              </p>
+
+              <ul
+                className="skill-tags"
+                role="list"
+                aria-label="Beceri etiketleri"
+              >
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>JavaScript</li>
+                <li>React</li>
+                <li>TypeScript</li>
+                <li>Git</li>
+              </ul>
+            </div>
+          </div>
         </section>
 
         <section id="projeler">
