@@ -1,27 +1,7 @@
-/* Genel sifirlama ve temel layout (LAB-3 Uygulama-7) */
-*,
-*::before,
-*::after {
+#root {
+  max-width: 100%;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
 }
 
 .logo {
@@ -195,12 +175,13 @@ section h2 {
 }
 
 .about-content figure {
-  max-width: 200px;
+  max-width: 140px;
 }
 
 .about-content img {
+  width: 140px;
+  height: 140px;
   border-radius: var(--radius-full);
-  aspect-ratio: 1;
   object-fit: cover;
 }
 
