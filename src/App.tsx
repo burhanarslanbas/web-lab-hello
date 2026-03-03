@@ -32,6 +32,15 @@ function App() {
             />
             <figcaption>Ahmet Yilmaz</figcaption>
           </figure>
+
+          <ul className="skill-tags" role="list" aria-label="Beceri etiketleri">
+            <li>HTML5</li>
+            <li>CSS3</li>
+            <li>JavaScript</li>
+            <li>React</li>
+            <li>TypeScript</li>
+            <li>Git</li>
+          </ul>
         </section>
 
         <section id="projeler">
