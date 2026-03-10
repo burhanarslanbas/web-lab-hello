@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
+/* Dark mode için Tailwind custom variant */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  /* LAB-3 design token'larini Tailwind temasina tasiyoruz */
   --color-primary: #1E3A8A;
   --color-secondary: #2563EB;
   --color-accent: #7C3AED;
@@ -14,81 +16,8 @@
   --font-family-mono: 'Fira Code', 'Consolas', monospace;
 }
 
+/* Eski LAB‑3 token dosyası*/
 @import './styles/tokens.css';
-
-:root {
-  font-family: var(--font-sans);
-  line-height: 1.5;
-  font-weight: 400;
-  color: var(--color-text);
-  background-color: var(--color-bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: var(--color-primary);
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: var(--color-secondary);
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  color: var(--color-text);
-  background-color: var(--color-bg);
-  font-size: var(--text-base);
-  line-height: 1.6;
-}
-
-h1 {
-  font-size: var(--text-3xl);
-  line-height: 1.1;
-}
-
-h2 {
-  font-size: var(--text-2xl);
-}
-
-h3 {
-  font-size: var(--text-xl);
-}
-
-button {
-  border-radius: var(--radius-md);
-  border: 1px solid transparent;
-  padding: var(--space-sm) var(--space-lg);
-  font-size: var(--text-base);
-  font-weight: 500;
-  font-family: inherit;
-  background-color: var(--color-primary);
-  color: var(--color-bg);
-  cursor: pointer;
-  transition:
-    border-color var(--transition-fast),
-    background-color var(--transition-fast);
-}
-
-button:hover {
-  border-color: var(--color-secondary);
-  background-color: var(--color-secondary);
-}
-
-button:focus,
-button:focus-visible {
-  outline: 2px solid var(--color-secondary);
-  outline-offset: 2px;
-}
-
-@import './styles/tokens.css';
-@import "tailwindcss";
 
 :root {
   font-family: var(--font-sans);
