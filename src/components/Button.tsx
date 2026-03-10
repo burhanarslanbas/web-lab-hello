@@ -1,3 +1,5 @@
+import type React from 'react'
+
 type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost'
 type ButtonSize = 'sm' | 'md' | 'lg'
 
