@@ -125,11 +125,11 @@ function App() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card
-                variant="elevated"
+                variant="outlined"
                 title="E-Ticaret API"
                 image={img_ecommerce}
                 imageAlt="E-Ticaret API ekran görüntüsü"
-                footer={<Button size="sm">Detay</Button>}
+                  footer={<Button size="sm">İncele</Button>}
               >
                 <p>
                   .NET ve Clean Architecture ile geliştirilmiş, ürün, sipariş ve ödeme
@@ -144,7 +144,7 @@ function App() {
                 imageAlt="Blog platformu ekran görüntüsü"
                 footer={
                   <Button size="sm" variant="secondary">
-                    Kodu Gör
+                      İncele
                   </Button>
                 }
               >
@@ -155,13 +155,18 @@ function App() {
               </Card>
 
               <Card
-                variant="filled"
+                variant="outlined"
                 title="Hava Durumu Servisi"
                 image={img_weather}
                 imageAlt="Hava durumu servisi ekran görüntüsü"
+                  footer={
+                    <Button size="sm" variant="ghost">
+                      İncele
+                    </Button>
+                  }
               >
                 <p>
-                  OpenWeather API üzerinden veri çekip cache&apos;leyen ve farklı
+                  OpenWeather API üzerinden veri çekip cache'leyen ve farklı
                   istemcilere JSON formatında sunan microservice.
                 </p>
               </Card>

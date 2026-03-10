@@ -30,9 +30,7 @@ export default function Card({
 
   return (
     <div
-      className={`rounded-xl overflow-hidden transition-shadow ${
-        variants[variant]
-      } ${className}`}
+      className={`rounded-xl overflow-hidden transition-shadow flex flex-col h-full ${variants[variant]} ${className}`}
     >
       {image && (
         <img
@@ -42,7 +40,7 @@ export default function Card({
         />
       )}
 
-      <div className="p-5">
+      <div className="p-5 flex-1">
         {title && (
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
             {title}
