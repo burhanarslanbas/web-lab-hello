@@ -4,6 +4,7 @@ import img_profile from './assets/profile.jpeg'
 import img_ecommerce from './assets/projects/e-commerce.jpg'
 import img_blog from './assets/projects/blog.jpg'
 import img_weather from './assets/projects/weather.jpg'
+import Button from './components/Button'
 
 function App() {
   const toggleTheme = () => {
@@ -29,9 +30,9 @@ function App() {
           <p className="text-gray-600 dark:text-gray-300 mb-4">
             Bu benim ilk Tailwind CSS bileşenim. Her class tek bir iş yapar.
           </p>
-          <button className="bg-blue-600 dark:bg-blue-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 dark:hover:bg-blue-400 transition-colors">
+          <Button variant="primary" size="md">
             Devam Et
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -68,6 +69,14 @@ function App() {
               <p className="text-gray-600 dark:text-gray-300 text-sm">
                 OpenWeather API ile gerçek zamanlı hava durumu bilgisi gösteren arayüz.
               </p>
+              <div className="mt-4 flex gap-2">
+                <Button size="sm" variant="secondary">
+                  Detay
+                </Button>
+                <Button size="sm" variant="ghost">
+                  Kodu Gör
+                </Button>
+              </div>
             </div>
           </article>
         </div>
