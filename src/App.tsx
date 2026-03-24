@@ -6,22 +6,11 @@ import Button from './components/Button'
 import Input from './components/Input'
 import Card from './components/Card'
 import Alert from './components/Alert'
-
-/** Shape of items in `public/data/projects.json` (LAB-5 Uygulama-1). */
-interface JsonProject {
-  id: number
-  title: string
-  description: string
-  tech: string[]
-  year: number
-  category: string
-  featured: boolean
-  image: string
-}
+import type { Project } from './types/project'
 
 function App() {
   const [showSuccess, setShowSuccess] = useState(false)
-  const [projects, setProjects] = useState<JsonProject[]>([])
+  const [projects, setProjects] = useState<Project[]>([])
   const [projectsLoading, setProjectsLoading] = useState(true)
   const [projectsError, setProjectsError] = useState<string | null>(null)
 
@@ -45,7 +34,7 @@ function App() {
         if (!response.ok) {
           throw new Error(`Projeler yüklenemedi: ${response.status}`)
         }
-        const data = (await response.json()) as JsonProject[]
+        const data = (await response.json()) as Project[]
         if (!cancelled) {
           setProjects(data)
         }
