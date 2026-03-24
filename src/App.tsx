@@ -6,14 +6,26 @@ import Button from './components/Button'
 import Input from './components/Input'
 import Card from './components/Card'
 import Alert from './components/Alert'
-import type { Project } from './types/project'
+import type { Category, Project, SortField, SortOrder } from './types/project'
 import { fetchProjects } from './services/projectService'
+import { applyFilters } from './utils/projectHelpers'
+
+const PROJECT_CATEGORIES: (Category | 'all')[] = [
+  'all',
+  'frontend',
+  'fullstack',
+  'backend',
+]
 
 function App() {
   const [showSuccess, setShowSuccess] = useState(false)
   const [projects, setProjects] = useState<Project[]>([])
   const [projectsLoading, setProjectsLoading] = useState(true)
   const [projectsError, setProjectsError] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
+  const [category, setCategory] = useState<Category | 'all'>('all')
+  const [sortField, setSortField] = useState<SortField>('year')
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc')
 
   const toggleTheme = () => {
     document.documentElement.classList.toggle('dark')
@@ -54,6 +66,14 @@ function App() {
       cancelled = true
     }
   }, [])
+
+  const filtered = applyFilters(
+    projects,
+    search,
+    category,
+    sortField,
+    sortOrder,
+  )
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
@@ -175,9 +195,75 @@ function App() {
               </p>
             )}
 
+            {!projectsLoading && !projectsError && projects.length > 0 && (
+              <>
+                <div className="flex flex-col sm:flex-row gap-4 mb-8 flex-wrap">
+                  <div className="flex-1 min-w-[200px]">
+                    <Input
+                      id="search"
+                      placeholder="Proje ara..."
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      aria-label="Proje ara"
+                    />
+                  </div>
+
+                  <div className="flex gap-2 flex-wrap items-center">
+                    {PROJECT_CATEGORIES.map((cat) => (
+                      <Button
+                        key={cat}
+                        type="button"
+                        variant={category === cat ? 'primary' : 'ghost'}
+                        size="sm"
+                        onClick={() => setCategory(cat)}
+                      >
+                        {cat === 'all' ? 'Tümü' : cat}
+                      </Button>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-2 items-center flex-wrap">
+                    <select
+                      value={sortField}
+                      onChange={(e) =>
+                        setSortField(e.target.value as SortField)
+                      }
+                      className="border rounded-lg px-3 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 border-gray-300 bg-white text-gray-900"
+                      aria-label="Sıralama alanı"
+                    >
+                      <option value="year">Yıl</option>
+                      <option value="title">Başlık</option>
+                    </select>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() =>
+                        setSortOrder((o) => (o === 'asc' ? 'desc' : 'asc'))
+                      }
+                      aria-label={
+                        sortOrder === 'asc'
+                          ? 'Azalan sıraya geç'
+                          : 'Artan sıraya geç'
+                      }
+                    >
+                      {sortOrder === 'asc' ? 'A-Z' : 'Z-A'}
+                    </Button>
+                  </div>
+                </div>
+
+                {filtered.length === 0 && (
+                  <p className="text-center text-gray-500 dark:text-gray-400 mb-6">
+                    Eşleşen proje bulunamadı.
+                  </p>
+                )}
+              </>
+            )}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {!projectsLoading &&
-                projects.map((project) => (
+                !projectsError &&
+                filtered.map((project) => (
                   <Card
                     key={project.id}
                     variant="outlined"
@@ -204,6 +290,12 @@ function App() {
                   </Card>
                 ))}
             </div>
+
+            {!projectsLoading && !projectsError && projects.length > 0 && (
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-4 text-center">
+                {filtered.length} / {projects.length} proje gösteriliyor
+              </p>
+            )}
           </div>
         </section>
 
