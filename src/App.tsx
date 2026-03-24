@@ -1,17 +1,29 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 import img_profile from './assets/profile.jpeg'
-import img_ecommerce from './assets/projects/e-commerce.jpg'
-import img_blog from './assets/projects/blog.jpg'
-import img_weather from './assets/projects/weather.jpg'
 import Button from './components/Button'
 import Input from './components/Input'
 import Card from './components/Card'
 import Alert from './components/Alert'
 
+/** Shape of items in `public/data/projects.json` (LAB-5 Uygulama-1). */
+interface JsonProject {
+  id: number
+  title: string
+  description: string
+  tech: string[]
+  year: number
+  category: string
+  featured: boolean
+  image: string
+}
+
 function App() {
   const [showSuccess, setShowSuccess] = useState(false)
+  const [projects, setProjects] = useState<JsonProject[]>([])
+  const [projectsLoading, setProjectsLoading] = useState(true)
+  const [projectsError, setProjectsError] = useState<string | null>(null)
 
   const toggleTheme = () => {
     document.documentElement.classList.toggle('dark')
@@ -21,6 +33,41 @@ function App() {
     e.preventDefault()
     setShowSuccess(true)
   }
+
+  useEffect(() => {
+    let cancelled = false
+
+    async function loadProjects() {
+      try {
+        setProjectsLoading(true)
+        setProjectsError(null)
+        const response = await fetch('/data/projects.json')
+        if (!response.ok) {
+          throw new Error(`Projeler yüklenemedi: ${response.status}`)
+        }
+        const data = (await response.json()) as JsonProject[]
+        if (!cancelled) {
+          setProjects(data)
+        }
+      } catch (err) {
+        console.error('Veri çekme hatası:', err)
+        if (!cancelled) {
+          setProjectsError(
+            err instanceof Error ? err.message : 'Bilinmeyen hata',
+          )
+        }
+      } finally {
+        if (!cancelled) {
+          setProjectsLoading(false)
+        }
+      }
+    }
+
+    void loadProjects()
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
@@ -123,53 +170,53 @@ function App() {
             <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-10">
               Projelerim
             </h2>
+
+            {projectsError && (
+              <div className="mb-6">
+                <Alert variant="error" title="Projeler yüklenemedi">
+                  {projectsError}
+                </Alert>
+              </div>
+            )}
+
+            {projectsLoading && (
+              <p className="text-center text-gray-500 dark:text-gray-400">Yükleniyor...</p>
+            )}
+
+            {!projectsLoading && !projectsError && projects.length === 0 && (
+              <p className="text-center text-gray-500 dark:text-gray-400">
+                Liste boş.
+              </p>
+            )}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card
-                variant="outlined"
-                title="E-Ticaret API"
-                image={img_ecommerce}
-                imageAlt="E-Ticaret API ekran görüntüsü"
-                  footer={<Button size="sm">İncele</Button>}
-              >
-                <p>
-                  .NET ve Clean Architecture ile geliştirilmiş, ürün, sipariş ve ödeme
-                  yönetimi içeren e-ticaret backend API'si.
-                </p>
-              </Card>
-
-              <Card
-                variant="outlined"
-                title="Blog Platformu"
-                image={img_blog}
-                imageAlt="Blog platformu ekran görüntüsü"
-                footer={
-                  <Button size="sm" variant="secondary">
-                      İncele
-                  </Button>
-                }
-              >
-                <p>
-                  JWT tabanlı kimlik doğrulama ve rol bazlı yetkilendirme içeren kişisel
-                  blog platformu.
-                </p>
-              </Card>
-
-              <Card
-                variant="outlined"
-                title="Hava Durumu Servisi"
-                image={img_weather}
-                imageAlt="Hava durumu servisi ekran görüntüsü"
-                  footer={
-                    <Button size="sm" variant="ghost">
-                      İncele
-                    </Button>
-                  }
-              >
-                <p>
-                  OpenWeather API üzerinden veri çekip cache'leyen ve farklı
-                  istemcilere JSON formatında sunan microservice.
-                </p>
-              </Card>
+              {!projectsLoading &&
+                projects.map((project) => (
+                  <Card
+                    key={project.id}
+                    variant="outlined"
+                    title={project.title}
+                    image={project.image}
+                    imageAlt={`${project.title} ekran görüntüsü`}
+                    footer={<Button size="sm">İncele</Button>}
+                  >
+                    <p className="mb-3">{project.description}</p>
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {project.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-0.5 rounded-full"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="text-xs text-gray-400 dark:text-gray-500">
+                      {project.year} · {project.category}
+                      {project.featured ? ' · Öne çıkan' : ''}
+                    </p>
+                  </Card>
+                ))}
             </div>
           </div>
         </section>
