@@ -7,6 +7,7 @@ import Input from './components/Input'
 import Card from './components/Card'
 import Alert from './components/Alert'
 import type { Project } from './types/project'
+import { fetchProjects } from './services/projectService'
 
 function App() {
   const [showSuccess, setShowSuccess] = useState(false)
@@ -30,11 +31,7 @@ function App() {
       try {
         setProjectsLoading(true)
         setProjectsError(null)
-        const response = await fetch('/data/projects.json')
-        if (!response.ok) {
-          throw new Error(`Projeler yüklenemedi: ${response.status}`)
-        }
-        const data = (await response.json()) as Project[]
+        const data = await fetchProjects()
         if (!cancelled) {
           setProjects(data)
         }
